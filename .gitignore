@@ -1,32 +1,65 @@
-# Prerequisites
-*.d
+#include<iostream>
+#include<string>
+#include<malloc.h>
+#define null 0
+using namespace std;
+template<class t>
+class stack
+{
+private:
+    struct node
+    {
+        t value;
+        node *next;
+    };
+    typedef node* ptr;
+    ptr new_node()
+    {
+        ptr p;
+        p=(ptr)malloc(sizeof(node));
+        return p;
+    }
+    ptr top ;
+public:
+    stack()
+    {
+        top=null;
+    }
+    void add_node(t v)
+    {
+        ptr p=new_node();
+        p->value=v;
+        p->next=top;
+        top=p;
+    }
+    void del_node()
+    {
+        if(top==null)
+            cout<<"stack is empty!\n";
+        else
+        {
+            ptr l = top;
+            top = top->next;
+            l=l->next=null;
+            free(l);
+        }
+    }
+    void show()
+    {
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+        ptr l=top;
+        while(l!=null)
+        {
+            cout<<l->value<<" ";
+            l=l->next;
+        }
+    }
+};
 
-# Precompiled Headers
-*.gch
-*.pch
+int main()
+{
+    stack<int>s;
+    s.show();
+    return 0;
+}
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
